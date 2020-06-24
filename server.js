@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
+const db = require("./models");
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,14 +14,19 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true });
+// Connection to the MongoDB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
-// db.on("error", error => {
-//     console.log("Database Error:", error);
-// });
-
+// Routes
+///////////////////////////////////////////////////
 // app.get("/api/workouts", (req, res) => {
-    
+//     db.Workout.find({})
+//     .then(dbWorkout => {
+//         res.json(dbWorkout);
+//     })
+//     .catch(err => {
+//         res.json(err);
+//     });
 // });
 
 // Start the server
