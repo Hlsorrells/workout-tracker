@@ -5,18 +5,28 @@ const Schema = mongoose.Schema;
 const WorkoutSchema = new Schema({
   day: {
     type: Date,
-    //should this be removed? can user have more than one workout per day?
-    unique: true
+    default: Date.now
   },
-  exercises: {
-    type: String,
-    name: String,
-    duration: Number,
-    weight: Number,
-    reps: Number,
-    sets: Number,
-    distance: Number
+  exercises: [{
+    type: {type: String},
+    name: {type: String},
+    duration: {type: Number},
+    weight: {type: Number},
+    reps: {type: Number},
+    sets: {type: Number},
+    distance: {type: Number}
+  }]
+},{
+  toJSON: {
+    virtuals: true
   }
+});
+
+// Define virtual to calculate the duration time
+WorkoutSchema.virtual("totalDuration").get(function() {
+  return this.exercises.reduce((total, current) => {
+    return total + current.duration
+  }, 0)
 });
 
 // This creates our model from the above schema, using mongoose's model method

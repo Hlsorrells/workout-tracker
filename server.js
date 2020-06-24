@@ -19,15 +19,25 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { use
 
 // Routes
 ///////////////////////////////////////////////////
-// app.get("/api/workouts", (req, res) => {
-//     db.Workout.find({})
-//     .then(dbWorkout => {
-//         res.json(dbWorkout);
+app.get("/api/workouts", (req, res) => {
+    db.Workout.find({})
+    .then(dbWorkout => {
+        res.json(dbWorkout);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+// app.get("/api/workouts/range", (req, res) => {
+//     db.Workout.sort({day: 1}).findOne({day: max })
+//     .then(dbLastWorkout => {
+//         res.json(dbLastWorkout);
 //     })
 //     .catch(err => {
 //         res.json(err);
-//     });
-// });
+//     })
+// })
 
 // Start the server
 app.listen(PORT, () => {
